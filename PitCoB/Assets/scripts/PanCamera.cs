@@ -64,7 +64,7 @@ public class PanCamera : MonoBehaviour {
                 cam.transform.Translate(dir * panSpeed * Time.deltaTime);
 
                 //Rotate the image
-                Vector2 target = transform.position - cam.ScreenToWorldPoint(Input.mousePosition);
+                Vector2 target = cam.transform.position - cam.ScreenToWorldPoint(Input.mousePosition);
 
                 float ang = Mathf.Atan2(target.y, target.x) * Mathf.Rad2Deg;
                 panHandle.transform.rotation = Quaternion.Euler(0, 0, ang + 180f);
