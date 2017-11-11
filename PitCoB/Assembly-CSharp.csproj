@@ -55,6 +55,7 @@
      <Compile Include="Assets\scripts\ForceAnimationTest.cs" />
      <Compile Include="Assets\scripts\IWeigh.cs" />
      <Compile Include="Assets\scripts\Obstacle.cs" />
+     <Compile Include="Assets\scripts\PanCamera.cs" />
      <Compile Include="Assets\scripts\Pirate.cs" />
      <Compile Include="Assets\scripts\Skeleton.cs" />
      <Compile Include="Assets\scripts\Squid.cs" />
