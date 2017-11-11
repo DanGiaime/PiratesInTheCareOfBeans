@@ -1,0 +1,20 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/scripts/Bag.cs">
+    <Files>
+      <File FileName="Assets/scripts/World.cs" Line="10" Column="26" />
+      <File FileName="Assets/scripts/Pirate.cs" Line="6" Column="2" />
+      <File FileName="Assets/scripts/Skeleton.cs" Line="5" Column="32" />
+      <File FileName="Assets/scripts/Vehicle.cs" Line="37" Column="22" />
+      <File FileName="Assets/scripts/Squid.cs" Line="6" Column="2" />
+      <File FileName="Assets/scripts/Agent.cs" Line="11" Column="18" />
+      <File FileName="Assets/scripts/Obstacle.cs" Line="7" Column="9" />
+      <File FileName="Assets/scripts/Bag.cs" Line="11" Column="11" />
+      <File FileName="Assets/scripts/IWeigh.cs" Line="7" Column="16" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
