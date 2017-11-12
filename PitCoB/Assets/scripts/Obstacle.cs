@@ -8,6 +8,11 @@ public abstract class Obstacle : MonoBehaviour, IWeigh {
 		get;
 	}
 
+	public abstract Vector3 Position
+	{
+		get;
+	}
+
 	// Use this for initialization
 	void Start () {
 		

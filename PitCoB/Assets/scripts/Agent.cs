@@ -6,33 +6,77 @@ public abstract class Agent : Vehicle {
 
 	public float seekWeight = 2f;
 	public float fleeWeight = 10f;
+	public float avoidWeight = 100f;
+	public float maxForce = 10f;
+	public World world;
+	protected Vector3 ultForce;
 
 	// Use this for initialization
-	public override void Start () {
+	void Start () {
+		ultForce = Vector3.zero;
         base.Start();
 	}
 	
 	// Update is called once per frame
-	public override void Update () {
-		CalcSteeringForces ();
+	void Update () {
         base.Update();
 	}
 
-    public Vector3 Seek(GameObject target)
+    public Vector3 Seek(Vehicle target)
     {
-        Vector3 desiredVelocity = target.transform.position - this.position;
+        Vector3 desiredVelocity = target.position - this.position;
         desiredVelocity = desiredVelocity.normalized * this.maxSpeed;
         Vector3 seekForce = desiredVelocity - this.velocity;
         return seekWeight * seekForce;
     }
 
-    public Vector3 Flee(GameObject target)
+    public Vector3 Flee(Vehicle target)
     {
-        Vector3 desiredVelocity = this.position - target.transform.position;
+        Vector3 desiredVelocity = this.position - target.position;
         desiredVelocity = desiredVelocity.normalized * this.maxSpeed;
         Vector3 fleeForce = desiredVelocity - this.velocity;
         return fleeWeight * fleeForce;
     }
+
+    public Vector3 AvoidObstacle(Obstacle obstacle) 
+	{
+		float distToObj = Vector3.Distance (this.transform.position, obstacle.Position);
+		Vector3 objCenter = obstacle.Position - this.transform.position;
+
+
+		float dotForward = Vector3.Dot (this.transform.forward, objCenter);
+
+		//Is the object in front of us? If not, no reason to care.
+		if (dotForward < 0)
+			return Vector3.zero;
+
+		//Vector3 objProjected = Vector3.Project (objCenter, this.transform.right);
+		float dotRight = Vector3.Dot (this.transform.right, objCenter);
+
+		//Is the object close to us? If not, no reason to care.
+		if (distToObj < maxSpeed) {
+
+			//Is the object to our right? turn Left!
+			if (dotRight > 0) {
+				return this.transform.right * -1 * avoidWeight;
+			} 
+
+			//Is the object to our left? turn Right!
+			else if (dotRight < 0) {
+				return this.transform.right * avoidWeight;
+			} 
+
+			//It's...right in front of us? ... RIGHTTT
+			else {
+				return this.transform.right * avoidWeight;
+			}
+		} else {
+			return Vector3.zero;
+		}
+
+	}
+
+
 
 	public abstract void CalcSteeringForces();
 }

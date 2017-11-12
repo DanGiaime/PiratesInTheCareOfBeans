@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class World : MonoBehaviour {
 
-	List<Pirate> pirates;
-	List<Skeleton> skeletons;
-	List<Squid> squids;
-	List<Obstacle> obstacles;
+	public List<Pirate> pirates;
+	public List<Skeleton> skeletons;
+	public List<Squid> squids;
+	public List<Obstacle> obstacles;
 
 	// Use this for initialization
 	void Start () {
