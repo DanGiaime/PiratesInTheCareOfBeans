@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class World : MonoBehaviour {
+public class World {
 
 	public List<Pirate> pirates;
 	public List<Skeleton> skeletons;
@@ -10,12 +10,10 @@ public class World : MonoBehaviour {
 	public List<Obstacle> obstacles;
 
 	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+	public World () {
+        pirates = new List<Pirate>();
+        skeletons = new List<Skeleton>();
+        squids = new List<Squid>();
+        obstacles = new List<Obstacle>();
 	}
 }

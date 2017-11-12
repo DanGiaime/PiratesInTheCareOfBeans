@@ -24,7 +24,7 @@ public abstract class Agent : Vehicle {
 
     public Vector3 Seek(Vehicle target)
     {
-        Vector3 desiredVelocity = target.position - this.position;
+        Vector3 desiredVelocity = /*target.position; - */this.transform.position;
         desiredVelocity = desiredVelocity.normalized * this.maxSpeed;
         Vector3 seekForce = desiredVelocity - this.velocity;
         return seekWeight * seekForce;
@@ -32,7 +32,7 @@ public abstract class Agent : Vehicle {
 
     public Vector3 Flee(Vehicle target)
     {
-        Vector3 desiredVelocity = this.position - target.position;
+        Vector3 desiredVelocity = this.transform.position - target.position;
         desiredVelocity = desiredVelocity.normalized * this.maxSpeed;
         Vector3 fleeForce = desiredVelocity - this.velocity;
         return fleeWeight * fleeForce;

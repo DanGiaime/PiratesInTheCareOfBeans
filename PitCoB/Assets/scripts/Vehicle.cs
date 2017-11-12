@@ -26,11 +26,11 @@ public abstract class Vehicle : MonoBehaviour {
     // Update is called once per frame
     protected void Update () {
 		velocity += acceleration * Time.deltaTime;
-		velocity.y = 0;
+		velocity.z = 0;
 		position += velocity * Time.deltaTime;
-		transform.position = new Vector3(position.x, 0, position.z);
+		transform.position = new Vector3(position.x, position.y, 0);
 		acceleration = Vector3.zero;
-        transform.rotation = Quaternion.Euler(0, Mathf.Rad2Deg * Mathf.Atan2(velocity.x, velocity.z), 0);
+        //transform.rotation = Quaternion.Euler(0, Mathf.Rad2Deg * Mathf.Atan2(velocity.x, velocity.z), 0);
 	}
 
 	public void ApplyForce(Vector3 force) {

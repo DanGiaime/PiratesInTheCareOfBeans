@@ -1,15 +1,17 @@
 ﻿<Properties StartupConfiguration="{91486702-2556-7937-313D-805F672F2CA0}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/scripts/Human.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/scripts/Spawner.cs">
     <Files>
-      <File FileName="Assets/scripts/Agent.cs" Line="8" Column="32" />
+      <File FileName="Assets/scripts/Agent.cs" Line="27" Column="58" />
       <File FileName="Assets/scripts/Bag.cs" Line="17" Column="37" />
       <File FileName="Assets/scripts/Bean.cs" Line="1" Column="1" />
       <File FileName="Assets/scripts/Bomb.cs" Line="1" Column="1" />
       <File FileName="Assets/scripts/Box.cs" Line="1" Column="1" />
-      <File FileName="Assets/scripts/World.cs" Line="8" Column="17" />
+      <File FileName="Assets/scripts/World.cs" Line="5" Column="19" />
       <File FileName="Assets/scripts/Obstacle.cs" Line="11" Column="34" />
-      <File FileName="Assets/scripts/Human.cs" Line="40" Column="1" />
-      <File FileName="Assets/scripts/Skeleton.cs" Line="34" Column="24" />
+      <File FileName="Assets/scripts/Skeleton.cs" Line="30" Column="17" />
+      <File FileName="Assets/scripts/Spawner.cs" Line="37" Column="77" />
+      <File FileName="Assets/scripts/Vehicle.cs" Line="29" Column="13" />
+      <File FileName="Assets/scripts/Pirate.cs" Line="41" Column="35" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
