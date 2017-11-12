@@ -20,11 +20,10 @@ public class Skeleton : Agent {
 	}
 
 	public override void CalcSteeringForces() {
-		float minDist = Vector3.Distance (this.transform.position, world.pirates [0].position);
-		Pirate closestpirate = world.pirates [0];
+        float minDist = Vector3.Distance (this.transform.position, pirateTarget.position);
 
 		foreach (Pirate pirate in world.pirates) {
-			float newDist = Vector3.Distance (this.transform.position, pirate.transform.position);
+			float newDist = Vector3.Distance (this.transform.position, pirate.position);
 			if (newDist < minDist) {
 				minDist = newDist;
 				pirateTarget = pirate;

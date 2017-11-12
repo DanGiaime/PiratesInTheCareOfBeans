@@ -1,5 +1,5 @@
 ﻿<Properties StartupConfiguration="{91486702-2556-7937-313D-805F672F2CA0}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/scripts/Spawner.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/scripts/Skeleton.cs">
     <Files>
       <File FileName="Assets/scripts/Agent.cs" Line="27" Column="58" />
       <File FileName="Assets/scripts/Bag.cs" Line="17" Column="37" />

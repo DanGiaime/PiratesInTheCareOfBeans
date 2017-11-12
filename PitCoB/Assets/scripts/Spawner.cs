@@ -59,6 +59,6 @@ public class Spawner : MonoBehaviour {
 	}
 
 	Vector3 randomPosition() {
-		return new Vector3 (Random.Range(MIN_X, MAX_X), 1, Random.Range(MIN_Y, MAX_Y));
+		return new Vector3 (Random.Range(MIN_X, MAX_X), Random.Range(MIN_Y, MAX_Y), 1);
 	}
 }

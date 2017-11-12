@@ -24,7 +24,7 @@ public abstract class Agent : Vehicle {
 
     public Vector3 Seek(Vehicle target)
     {
-        Vector3 desiredVelocity = /*target.position; - */this.transform.position;
+        Vector3 desiredVelocity = target.position - this.transform.position;
         desiredVelocity = desiredVelocity.normalized * this.maxSpeed;
         Vector3 seekForce = desiredVelocity - this.velocity;
         return seekWeight * seekForce;
