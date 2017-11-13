@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum States { Menu, Game, GameOver, LevelSelect };
+public enum States { Menu, Game, Win, Lose, LevelSelect };
 
 public class StateController : MonoBehaviour {
 
@@ -37,11 +37,11 @@ public class StateController : MonoBehaviour {
 
         //Level object cleanup
         if(currentState == States.Game) {
-            if (state != States.GameOver && loadedLevelObject)
+            if (state != States.Lose && state != States.Win && loadedLevelObject)
                 Destroy(loadedLevelObject);
         }
 
-        if(currentState == States.GameOver && loadedLevelObject)
+        if((currentState == States.Lose || currentState == States.Win) && loadedLevelObject)
             Destroy(loadedLevelObject);
 
         currentState = state;
