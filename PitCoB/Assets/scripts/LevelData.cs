@@ -19,8 +19,7 @@ public class LevelData : MonoBehaviour {
     World w;
     StateController sc;
 
-	// Use this for initialization
-	void Start () {
+    public void InitializeLevelData() {
         uiTools = UIController.uiTools;
         UpdateTools(true);
 
@@ -32,22 +31,26 @@ public class LevelData : MonoBehaviour {
         //Initialize the World
         w = FindObjectOfType<World>();
         InitWorld();
+
+        Debug.Log("Level Data initialized.");
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (timer > 0) {
-            timer -= Time.deltaTime;
+        if (sc.currentState == States.Game) {
+            if (timer > 0) {
+                timer -= Time.deltaTime;
 
-            //Draw the timer
-            int minutes = Mathf.FloorToInt(timer / 60F);
-            int seconds = Mathf.FloorToInt(timer - minutes * 60);
-            timerText.text = string.Format("{0:0}:{1:00}", minutes, seconds);
-            
-            if(timer <= 0) {
-                //Level is over, evaluate win or loss.
-                timer = 0;
-                EndLevel(w.pirates.Count >= targetAlive);
+                //Draw the timer
+                int minutes = Mathf.FloorToInt(timer / 60F);
+                int seconds = Mathf.FloorToInt(timer - minutes * 60);
+                timerText.text = string.Format("{0:0}:{1:00}", minutes, seconds);
+
+                if (timer <= 0) {
+                    //Level is over, evaluate win or loss.
+                    timer = 0;
+                    EndLevel(w.pirates.Count >= targetAlive);
+                }
             }
         }
 	}

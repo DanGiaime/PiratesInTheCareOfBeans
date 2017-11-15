@@ -15,11 +15,15 @@ public class UIController : MonoBehaviour {
     float rot;
 
     // Use this for initialization
-    void Start () {
+    void Awake() {
         uiTools = new GameObject[4];
         uiTools = GameObject.FindGameObjectsWithTag("Tool UI");
 
         timerText = GameObject.FindGameObjectWithTag("Timer Text").GetComponent<Text>();
+    }
+
+    void Start () {
+        
 	}
 	
 	// Update is called once per frame
