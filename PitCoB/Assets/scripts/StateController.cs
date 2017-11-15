@@ -86,6 +86,14 @@ public class StateController : MonoBehaviour {
     }
 
     /// <summary>
+    /// Loads the next level.
+    /// </summary>
+    public void LoadNextLevel() {
+        if(currentLevel + 1 < levelObjects.Length)
+            LoadLevel(currentLevel + 1);
+    }
+
+    /// <summary>
     /// Reload the current level.
     /// </summary>
     public void ResetLevel() {
