@@ -23,7 +23,7 @@ public class Tile : MonoBehaviour
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")) //check the int value in layer manager(User Defined starts at 8))
         {
-            collision.gameObject.GetComponent<Vehicle>().isGrounded = true;
+            //collision.gameObject.GetComponent<Vehicle>().isGrounded = true;
             Debug.Log("ONGROUND");
         }
     }
@@ -32,7 +32,7 @@ public class Tile : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")) //check the int value in layer manager(User Defined starts at 8))
         {
-            collision.gameObject.GetComponent<Vehicle>().isGrounded = false;
+            //collision.gameObject.GetComponent<Vehicle>().isGrounded = false;
             Debug.Log("FALL");
         }
     }

@@ -21,52 +21,24 @@ public class Pirate : Agent
 	{
         if (world != null)
         {
-            // Find closest skeleton
-            float minDist = Mathf.Infinity;
+            // Find close enough pirates
             foreach (Skeleton skeleton in world.skeletons)
             {
-                float newDist = Vector3.Distance(this.transform.position, skeleton.position);
-                if (newDist < minDist)
+                float dist = Vector3.Distance(this.position, skeleton.position);
+                if (dist < radiusOfCaring * 2)
                 {
-                    minDist = newDist;
-                    skeletonClosest = skeleton;
+                    ultForce += Flee(skeleton.position);
                 }
             }
 
-            // Find closest object
-            minDist = Mathf.Infinity;
+            // Find close enough objects
             foreach (Obstacle obstacle in world.obstacles)
             {
-                float newDist = Vector3.Distance(this.transform.position, obstacle.Position);
-                if (newDist < minDist)
+                float dist = Vector3.Distance(this.position, obstacle.Position);
+                if (dist < radiusOfCaring)
                 {
-                    minDist = newDist;
-                    obstacleClosest = obstacle;
+                    ultForce += AvoidObstacle(obstacle.Position);
                 }
-            }
-
-            // Find target if I would hit an edge
-            edgeAvoidTarget = AvoidEdges();
-
-            if (edgeAvoidTarget != Vector3.zero)
-            {
-                Debug.Log("Seek Away from Edge Pirate");
-                Debug.Log(edgeAvoidTarget);
-                SetSeekTarget(edgeAvoidTarget);
-            }
-            if (skeletonClosest != null && Vector3.Distance(skeletonClosest.position, position) < distanceToObject )
-            {
-                Debug.Log("Flee From Sekeleton");
-                SetFleeTarget(skeletonClosest.position);
-            }
-            //else if (obstacleClosest != null)
-            //{
-            //    Debug.Log("Avoid Obstacle pirate");
-            //    SetAvoidTarget(obstacleClosest.Position);
-            //}
-            else
-            {
-                Debug.Log("wat");
             }
         }
 

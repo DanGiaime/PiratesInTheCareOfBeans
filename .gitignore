@@ -1,6 +1,6 @@
 .DS_Store
 **/Library/
 **/Temp/
-**/*.sln
-**/*.csproj
-**/*.userprefs
+*.sln
+*.csproj
+*.userprefs
