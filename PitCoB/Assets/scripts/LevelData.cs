@@ -22,6 +22,9 @@ public class LevelData : MonoBehaviour {
     World w;
     StateController sc;
 
+    [HideInInspector]
+    public bool Over;
+
     public void InitializeLevelData() {
         uiTools = UIController.uiTools;
         UpdateTools(true);
@@ -58,6 +61,10 @@ public class LevelData : MonoBehaviour {
         }
 	}
 
+    private void OnMouseEnter() { Over = true; }
+
+    private void OnMouseExit() { Over = false; }
+
     void UpdateTools(bool hideZero = false) {
         for(int i = 0; i < uiTools.Length; i++) {
             if (hideZero && toolCounts[i] == 0)
@@ -68,6 +75,8 @@ public class LevelData : MonoBehaviour {
     }
 
     void EndLevel(bool won = false) {
+        w.ClearObjects();
+
         timerText.text = "0:00";
         if (won)
             sc.ChangeState(States.Win);

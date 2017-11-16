@@ -24,6 +24,9 @@ public class PanCamera : MonoBehaviour {
     bool followingObject;
 
     [SerializeField]
+    bool enablePanning;
+
+    [SerializeField]
     float panSpeed, panSensitivity;
 
     [SerializeField]
@@ -37,50 +40,59 @@ public class PanCamera : MonoBehaviour {
 	void Start () {
         cam = Camera.main;
 	}
-	
-	/// <summary>
+
+    /// <summary>
     /// Update the camera movement behavior.
     /// </summary>
-	void Update () {
-        //If we're not following an object...
-        if (!followingObject) {
+    void Update() {
+        if (enablePanning)
+        {
+            //If we're not following an object...
+            if (!followingObject)
+            {
 
-            panHandle.enabled = false;
+                panHandle.enabled = false;
 
-            //Pan the camera if necessary
-            if (MouseCloseToCameraBounds()) {
-                panHandle.enabled = true;
+                //Pan the camera if necessary
+                if (MouseCloseToCameraBounds())
+                {
+                    panHandle.enabled = true;
 
-                Vector2 pos;
-                RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, canvas.worldCamera, out pos);
-                Vector3 tfp = canvas.transform.TransformPoint(pos);
-                panHandle.transform.position = new Vector2(
-                    Mathf.Clamp(tfp.x, panHandle.rectTransform.rect.width, cam.pixelWidth - panHandle.rectTransform.rect.width),
-                    Mathf.Clamp(tfp.y, panHandle.rectTransform.rect.height, cam.pixelHeight - panHandle.rectTransform.rect.height));
+                    Vector2 pos;
+                    RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, canvas.worldCamera, out pos);
+                    Vector3 tfp = canvas.transform.TransformPoint(pos);
+                    panHandle.transform.position = new Vector2(
+                        Mathf.Clamp(tfp.x, panHandle.rectTransform.rect.width, cam.pixelWidth - panHandle.rectTransform.rect.width),
+                        Mathf.Clamp(tfp.y, panHandle.rectTransform.rect.height, cam.pixelHeight - panHandle.rectTransform.rect.height));
 
-                //Get a vector from the center of the camera space to the mouse, translate the camera along it.
-                Vector2 dir = cam.ScreenToWorldPoint(Input.mousePosition) - cam.ScreenToWorldPoint(new Vector2(cam.pixelWidth / 2, cam.pixelHeight / 2));
+                    //Get a vector from the center of the camera space to the mouse, translate the camera along it.
+                    Vector2 dir = cam.ScreenToWorldPoint(Input.mousePosition) - cam.ScreenToWorldPoint(new Vector2(cam.pixelWidth / 2, cam.pixelHeight / 2));
 
-                cam.transform.Translate(dir * panSpeed * Time.deltaTime);
+                    cam.transform.Translate(dir * panSpeed * Time.deltaTime);
 
-                //Rotate the image
-                Vector2 target = cam.transform.position - cam.ScreenToWorldPoint(Input.mousePosition);
+                    //Rotate the image
+                    Vector2 target = cam.transform.position - cam.ScreenToWorldPoint(Input.mousePosition);
 
-                float ang = Mathf.Atan2(target.y, target.x) * Mathf.Rad2Deg;
-                panHandle.transform.rotation = Quaternion.Euler(0, 0, ang + 180f);
+                    float ang = Mathf.Atan2(target.y, target.x) * Mathf.Rad2Deg;
+                    panHandle.transform.rotation = Quaternion.Euler(0, 0, ang + 180f);
+                }
             }
+            else
+            {
+                //If we're ffollowing an object...
+                //Break the follow by panning
+                if (MouseCloseToCameraBounds())
+                    FollowObject = null;
+
+                //Follow the object
+                cam.transform.position = new Vector3(FollowObject.position.x, FollowObject.position.y, cam.transform.position.z);
+            }
+
+            //Clamp the camera into the level bounds
+            ClampCameraBounds();
         } else {
-            //If we're ffollowing an object...
-            //Break the follow by panning
-            if (MouseCloseToCameraBounds())
-                FollowObject = null;
-
-            //Follow the object
-            cam.transform.position = new Vector3(FollowObject.position.x, FollowObject.position.y, cam.transform.position.z);
+            panHandle.enabled = false;
         }
-
-        //Clamp the camera into the level bounds
-        ClampCameraBounds();
     }
 
     /// <summary>

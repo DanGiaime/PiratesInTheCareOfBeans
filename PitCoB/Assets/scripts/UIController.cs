@@ -25,6 +25,8 @@ public class UIController : MonoBehaviour {
     Camera cam;
     StateController sc;
 
+    public bool validToUse;
+
     // Use this for initialization
     void Awake() {
         sc = FindObjectOfType<StateController>();
@@ -37,6 +39,7 @@ public class UIController : MonoBehaviour {
 
     void Start () {
         cam = Camera.main;
+        SwitchReticle(-1);
     }
 	
 	// Update is called once per frame
@@ -46,17 +49,15 @@ public class UIController : MonoBehaviour {
         if(wheel.gameObject.activeSelf)
             wheel.rotation = Quaternion.Euler(0, 0, rot);
 
-
+        if (sc.loadedLevelObject)
+            validToUse = sc.loadedLevelObject.GetComponent<LevelData>().Over;
 
         if (reticle.gameObject.activeSelf)
         {
-            if (sc.loadedLevelObject)
-            {
-                if (Vector2.Distance(sc.loadedLevelObject.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition)) > sc.GetComponent<World>().radius)
-                    reticle.color = new Color(1f, 1f, 1f, 0.5f);
-                else
-                    reticle.color = new Color(1f, 1f, 1f, 1f);
-            }
+            if (!validToUse)
+                reticle.color = new Color(1f, 1f, 1f, 0.5f);
+            else
+                reticle.color = new Color(1f, 1f, 1f, 1f);
 
             Vector2 pos;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, canvas.worldCamera, out pos);
@@ -72,6 +73,7 @@ public class UIController : MonoBehaviour {
         if (ret == -1)
         {
             reticle.sprite = null;
+            reticle.gameObject.SetActive(false);
             return;
         }
 
@@ -80,6 +82,9 @@ public class UIController : MonoBehaviour {
             if (i == ret)
             {
                 reticle.sprite = reticles[i];
+
+                reticle.gameObject.SetActive(true);
+
                 reticle.rectTransform.sizeDelta =
                     new Vector2(reticles[i].textureRect.width, reticles[i].textureRect.height);
             }
