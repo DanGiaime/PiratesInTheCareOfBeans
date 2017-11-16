@@ -16,6 +16,9 @@ public class LevelData : MonoBehaviour {
     [SerializeField]
     int targetAlive;
 
+    [SerializeField]
+    float radius;
+
     World w;
     StateController sc;
 
@@ -75,6 +78,9 @@ public class LevelData : MonoBehaviour {
     void InitWorld() {
         //Reset the World.
         //Add this level's objects to the appropriate World lists.
+
+        w.radius = radius;
+
         Debug.Log("World initialized.");
     }
 }

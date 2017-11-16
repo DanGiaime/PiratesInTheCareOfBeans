@@ -23,9 +23,12 @@ public class UIController : MonoBehaviour {
     Canvas canvas;
 
     Camera cam;
+    StateController sc;
 
     // Use this for initialization
     void Awake() {
+        sc = FindObjectOfType<StateController>();
+
         uiTools = new GameObject[4];
         uiTools = GameObject.FindGameObjectsWithTag("Tool UI");
 
@@ -47,6 +50,14 @@ public class UIController : MonoBehaviour {
 
         if (reticle.gameObject.activeSelf)
         {
+            if (sc.loadedLevelObject)
+            {
+                if (Vector2.Distance(sc.loadedLevelObject.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition)) > sc.GetComponent<World>().radius)
+                    reticle.color = new Color(1f, 1f, 1f, 0.5f);
+                else
+                    reticle.color = new Color(1f, 1f, 1f, 1f);
+            }
+
             Vector2 pos;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, canvas.worldCamera, out pos);
             Vector3 tfp = canvas.transform.TransformPoint(pos);
