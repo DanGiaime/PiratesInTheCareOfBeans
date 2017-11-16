@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class World : MonoBehaviour {
+public class World : MonoBehaviour{
 
 	public List<Pirate> pirates;
 	public List<Skeleton> skeletons;

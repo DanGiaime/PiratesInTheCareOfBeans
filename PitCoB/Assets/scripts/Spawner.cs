@@ -19,7 +19,7 @@ public class Spawner : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		world = new World ();
+        world = this.GetComponent<World>();
 
         foreach (Obstacle obst in gameObject.GetComponentsInChildren<Bag>())
         {
@@ -35,37 +35,6 @@ public class Spawner : MonoBehaviour {
             world.pirates.Add(pirate);
             pirate.world = world;
         }
-
-
-		//for (int i = 0; i < 5; i++) {
-		//	GameObject newskeleton = Instantiate (skeleton, randomPosition (), Quaternion.identity, transform);
-  //          newskeleton.GetComponent<Skeleton>().world = world;
-		//	newskeleton.transform.Rotate (0, 0, Random.Range (0f, 6.28f));
-		//	newskeleton.GetComponentInChildren<Agent> ().Mass = 1f;
-  //          //world.skeletons.Add(newskeleton.GetComponent<Skeleton>());
-  //          world.skeletons.Add(newskeleton.GetComponent<Skeleton>());
-
-
-
-		//	GameObject newpirate = Instantiate (pirate, randomPosition(), Quaternion.identity, transform);
-  //          newpirate.GetComponent<Pirate>().world = world;
-		//	newpirate.transform.Rotate(0, 0, Random.Range(0f, 6.28f));
-		//	newpirate.GetComponentInChildren<Agent>().Mass = 1f;
-  //          //world.pirates.Add(newpirate.GetComponent<Pirate>());
-
-		//	newskeleton.GetComponent<Skeleton> ().pirateTarget = newpirate.GetComponent<Pirate>();
-		//	newpirate.GetComponent<Pirate> ().skeletonClosest = newskeleton.GetComponent<Skeleton>();
-
-		//	world.pirates.Add(newpirate.GetComponent<Pirate>());
-		//}
-
-        //for (int i = 0; i < 50; i++) {
-
-        //	GameObject newObject = Instantiate (PSG, randomPosition(), Quaternion.identity, transform);
-        //	newObject.transform.Rotate(0, 0, Random.Range(0f, 6.28f));
-        //	world.obstacles.Add(newObject);
-
-        //}
 
 
     }

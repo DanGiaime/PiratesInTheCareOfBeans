@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2017
+# Visual Studio for Mac
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PitCoB", "PitCoB.csproj", "{91486702-2556-7937-313D-805F672F2CA0}"
 EndProject
 Global
