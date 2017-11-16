@@ -90,6 +90,7 @@
     <Compile Include="Assets\scripts\Spawner.cs" />
     <Compile Include="Assets\scripts\Squid.cs" />
     <Compile Include="Assets\scripts\StateController.cs" />
+    <Compile Include="Assets\scripts\Tile.cs" />
     <Compile Include="Assets\scripts\UIController.cs" />
     <Compile Include="Assets\scripts\Vehicle.cs" />
     <Compile Include="Assets\scripts\World.cs" />

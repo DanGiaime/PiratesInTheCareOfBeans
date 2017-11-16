@@ -10,7 +10,7 @@ public class Bag : Obstacle {
 
 	public override float Weight {
 		get {
-			return weight;
+			return Bag.weight;
 		}
 	}
 
