@@ -6,47 +6,71 @@ public class Pirate : Agent
 {
 
 	public Skeleton skeletonClosest;
-
-	// Use this for initialization
-	void Start()
-	{
-		this.skeletonClosest = world.skeletons[0];
-		base.Start();
-	}
+    public Obstacle obstacleClosest;
+    public Vector3 edgeAvoidTarget;
 
 	// Update is called once per frame
-	void Update()
+	public override void Update()
 	{
-		CalcSteeringForces();
-		this.ApplyForce(ultForce.normalized * 10f);
+        CalcSteeringForces();
 		base.Update();
 		ultForce = Vector3.zero;
 	}
 
 	public override void CalcSteeringForces()
 	{
-		//Find closest skeletons
-		float minDist = Vector3.Distance(this.transform.position, skeletonClosest.position);
-		foreach (Skeleton skeleton in world.skeletons)
-		{
-			float newDist = Vector3.Distance(this.transform.position, skeleton.position);
-			if (newDist < minDist)
-			{
-				minDist = newDist;
-				skeletonClosest = skeleton;
-			}
-		}
+        if (world != null)
+        {
+            // Find closest skeleton
+            float minDist = Mathf.Infinity;
+            foreach (Skeleton skeleton in world.skeletons)
+            {
+                float newDist = Vector3.Distance(this.transform.position, skeleton.position);
+                if (newDist < minDist)
+                {
+                    minDist = newDist;
+                    skeletonClosest = skeleton;
+                }
+            }
 
-		//Flee and seek
-		ultForce += Flee(skeletonClosest);
-		//ultForce += Seek (PSG);
+            // Find closest object
+            minDist = Mathf.Infinity;
+            foreach (Obstacle obstacle in world.obstacles)
+            {
+                float newDist = Vector3.Distance(this.transform.position, obstacle.Position);
+                if (newDist < minDist)
+                {
+                    minDist = newDist;
+                    obstacleClosest = obstacle;
+                }
+            }
 
-		//avoid
-		//foreach (Obstacle obst in world.obstacles)
-		//{
-		//	Vector3 avoidForce = AvoidObstacle(obst);
-		//	ultForce += avoidForce;
-		//}
+            // Find target if I would hit an edge
+            edgeAvoidTarget = AvoidEdges();
+
+            if (edgeAvoidTarget != Vector3.zero)
+            {
+                Debug.Log("Seek Away from Edge Pirate");
+                Debug.Log(edgeAvoidTarget);
+                SetSeekTarget(edgeAvoidTarget);
+            }
+            if (skeletonClosest != null && Vector3.Distance(skeletonClosest.position, position) < distanceToObject )
+            {
+                Debug.Log("Flee From Sekeleton");
+                SetFleeTarget(skeletonClosest.position);
+            }
+            //else if (obstacleClosest != null)
+            //{
+            //    Debug.Log("Avoid Obstacle pirate");
+            //    SetAvoidTarget(obstacleClosest.Position);
+            //}
+            else
+            {
+                Debug.Log("wat");
+            }
+        }
 
 	}
+
+
 }
