@@ -8,6 +8,7 @@ public class World : MonoBehaviour{
 	public List<Skeleton> skeletons;
 	public List<Squid> squids;
 	public List<Obstacle> obstacles;
+    public float radius;
 
     void Start() {
         pirates = new List<Pirate>();
