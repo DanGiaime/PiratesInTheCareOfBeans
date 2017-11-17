@@ -10,6 +10,7 @@ public abstract class Vehicle : MonoBehaviour {
     public Transform rotation;
     public float maxSpeed = 1f;
 	private float mass = 2f;
+    public float radius = 0.5f;
 
     // Use this for initialization
     public virtual void Start () {

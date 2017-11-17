@@ -20,6 +20,7 @@ public class Tools : MonoBehaviour {
 
     StateController sc;
     UIController uic;
+    public LevelData ld;
 
 	// Use this for initialization
 	void Start () {
@@ -29,13 +30,16 @@ public class Tools : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (toolSelected != -1 && Input.GetMouseButtonDown(0) && uic.validToUse) {
+        if (toolSelected != -1 && ld && ld.toolCounts[toolSelected] > 0 && Input.GetMouseButtonDown(0) && uic.validToUse) {
             UseSelectedTool();
         }
     }
 
     public void UseSelectedTool()
     {
+        Debug.Log("Used tool");
+        ld.DecreaseToolCount(toolSelected);
+
         if(toolSelected != 1) {
             GameObject obj = Instantiate(toolObjects[toolSelected], Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
 
@@ -56,9 +60,10 @@ public class Tools : MonoBehaviour {
                     sc.GetComponent<World>().bombs.Add(obj.GetComponent<Bomb>());
                     break;
             }
-        } else {
-
         }
+
+        if (ld.toolCounts[toolSelected] == 0)
+            SwitchTool(-1);
     }
 
     /// <summary>
@@ -66,27 +71,27 @@ public class Tools : MonoBehaviour {
     /// </summary>
     /// <param name="tool">Tool index to switch to.</param>
     public void SwitchTool(int tool) {
-        uic.SwitchReticle(tool);
+        if (tool == -1 || (ld && ld.toolCounts[tool] > 0)) {
+            uic.SwitchReticle(tool);
 
-        if(toolSelected == tool) {
-            SwitchTool(-1);
-            return;
-        }
-
-        for (int i = 0; i < toolUIs.Length; i++)
-        {
-            if (i == tool)
-            {
-                toolUIs[i].sprite = toolUIBacks[0];
-                toolUIs[i].rectTransform.sizeDelta = 
-                    new Vector2(toolUIBacks[0].textureRect.width, toolUIBacks[0].textureRect.height);
-            } else {
-                toolUIs[i].sprite = toolUIBacks[1];
-                toolUIs[i].rectTransform.sizeDelta =
-                    new Vector2(toolUIBacks[1].textureRect.width, toolUIBacks[1].textureRect.height);
+            if (toolSelected == tool) {
+                SwitchTool(-1);
+                return;
             }
-        }
 
-        toolSelected = tool;
+            for (int i = 0; i < toolUIs.Length; i++) {
+                if (i == tool) {
+                    toolUIs[i].sprite = toolUIBacks[0];
+                    toolUIs[i].rectTransform.sizeDelta =
+                        new Vector2(toolUIBacks[0].textureRect.width, toolUIBacks[0].textureRect.height);
+                } else {
+                    toolUIs[i].sprite = toolUIBacks[1];
+                    toolUIs[i].rectTransform.sizeDelta =
+                        new Vector2(toolUIBacks[1].textureRect.width, toolUIBacks[1].textureRect.height);
+                }
+            }
+
+            toolSelected = tool;
+        }
     }
 }

@@ -37,11 +37,6 @@ public class Skeleton : Agent {
         }
 	}
 
-    void OnMouseDown() {
-        if(FindObjectOfType<Tools>() && FindObjectOfType<Tools>().toolSelected == 1)
-            Die();
-    }
-
     public void Die() {
         GameObject p = Instantiate(deathParticles, transform.position, Quaternion.identity);
         p.GetComponent<DeathParticles>().Type = 1;

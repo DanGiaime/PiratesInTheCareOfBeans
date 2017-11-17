@@ -84,7 +84,14 @@ public class LevelData : MonoBehaviour {
             sc.ChangeState(States.Lose);
     }
 
+    public void DecreaseToolCount(int tool) {
+        toolCounts[tool]--;
+        UpdateTools(false);
+    }
+
     void InitWorld() {
+        FindObjectOfType<Tools>().ld = this;
+
         //Reset the World.
         //Add this level's objects to the appropriate World lists.
 
