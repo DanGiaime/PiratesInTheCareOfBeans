@@ -4,27 +4,20 @@ using UnityEngine;
 
 public class World : MonoBehaviour{
 
-	public List<Pirate> pirates;
-	public List<Skeleton> skeletons;
-	public List<Squid> squids;
-	public List<Obstacle> obstacles;
+    public List<Pirate> pirates = new List<Pirate>();
+    public List<Skeleton> skeletons = new List<Skeleton>();
+    public List<Squid> squids = new List<Squid>();
+    public List<Obstacle> obstacles = new List<Obstacle>();
 
-    public List<Bag> bags;
-    public List<Box> boxes;
-    public List<Bean> beans;
-    public List<Bomb> bombs;
+    public List<Bag> bags = new List<Bag>();
+    public List<Box> boxes = new List<Box>();
+    public List<Bean> beans = new List<Bean>();
+    public List<Bomb> bombs = new List<Bomb>();
 
     public float radius;
 
     void Start() {
-        //pirates = new List<Pirate>();
-        //skeletons = new List<Skeleton>();
-        //squids = new List<Squid>();
-        //obstacles = new List<Obstacle>();
-        //bags = new List<Bag>();
-        //boxes = new List<Box>();
-        //beans = new List<Bean>();
-        //bombs = new List<Bomb>();
+        
     }
 
     public void RemoveObject(Object obj) {
