@@ -17,14 +17,14 @@ public class World : MonoBehaviour{
     public float radius;
 
     void Start() {
-        pirates = new List<Pirate>();
-        skeletons = new List<Skeleton>();
-        squids = new List<Squid>();
-        obstacles = new List<Obstacle>();
-        bags = new List<Bag>();
-        boxes = new List<Box>();
-        beans = new List<Bean>();
-        bombs = new List<Bomb>();
+        //pirates = new List<Pirate>();
+        //skeletons = new List<Skeleton>();
+        //squids = new List<Squid>();
+        //obstacles = new List<Obstacle>();
+        //bags = new List<Bag>();
+        //boxes = new List<Box>();
+        //beans = new List<Bean>();
+        //bombs = new List<Bomb>();
     }
 
     public void RemoveObject(Object obj) {
