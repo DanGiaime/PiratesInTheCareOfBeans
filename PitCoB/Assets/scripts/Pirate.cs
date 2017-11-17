@@ -27,7 +27,7 @@ public class Pirate : Agent
                 float dist = Vector3.Distance(this.position, skeleton.position);
                 if (dist < radiusOfCaring * 2)
                 {
-                    ultForce += Flee(skeleton.position);
+                    ultForce += Evade(skeleton);
                 }
             }
 

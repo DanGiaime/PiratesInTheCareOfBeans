@@ -51,6 +51,18 @@ public abstract class Agent : Vehicle {
         return ForceWeight(target) * fleeForce;
     }
 
+    public Vector3 Pursue(Agent agent)
+    {
+        Vector3 agentFuturePosition = agent.position + agent.velocity.normalized;
+        return Seek(agentFuturePosition);
+    }
+
+    public Vector3 Evade(Agent agent)
+    {
+        Vector3 agentFuturePosition = agent.position + agent.velocity.normalized;
+        return Flee(agentFuturePosition);
+    }
+
     public Vector3 AvoidObstacle(Vector3 obstaclePosition) 
 	{
 		float distToObj = Vector3.Distance (this.transform.position, obstaclePosition);
