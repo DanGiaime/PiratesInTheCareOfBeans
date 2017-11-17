@@ -7,6 +7,8 @@ public abstract class Agent : Vehicle {
     public float maxForce = 10f;
     public float wanderRadius = 2f;
 
+    public GameObject deathParticles;
+
     /// <summary>
     /// When to stop seeking something
     /// </summary>

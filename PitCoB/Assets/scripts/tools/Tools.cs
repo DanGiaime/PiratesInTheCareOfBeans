@@ -36,29 +36,28 @@ public class Tools : MonoBehaviour {
 
     public void UseSelectedTool()
     {
-        GameObject obj = Instantiate(toolObjects[toolSelected], Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
+        if(toolSelected != 1) {
+            GameObject obj = Instantiate(toolObjects[toolSelected], Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
 
-        switch (toolSelected)
-        {
-            //Bean bag
-            case 0:
-                sc.GetComponent<World>().bags.Add(obj.GetComponent<Bag>());
-                break;
+            switch (toolSelected) {
+                //Bean bag
+                case 0:
+                    sc.GetComponent<World>().bags.Add(obj.GetComponent<Bag>());
+                    break;
 
-            //Bean projectile
-            case 1:
-                sc.GetComponent<World>().beans.Add(obj.GetComponent<Bean>());
-                break;
+                //Box
+                case 2:
+                    sc.GetComponent<World>().boxes.Add(obj.GetComponent<Box>());
+                    break;
 
-            //Box
-            case 2:
-                sc.GetComponent<World>().boxes.Add(obj.GetComponent<Box>());
-                break;
+                //Bean Bomb
+                case 3:
+                    
+                    sc.GetComponent<World>().bombs.Add(obj.GetComponent<Bomb>());
+                    break;
+            }
+        } else {
 
-            //Bean Bomb
-            case 3:
-                sc.GetComponent<World>().bombs.Add(obj.GetComponent<Bomb>());
-                break;
         }
     }
 

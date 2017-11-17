@@ -27,6 +27,15 @@ public class World : MonoBehaviour{
         bombs = new List<Bomb>();
     }
 
+    public void RemoveObject(Object obj) {
+        if (obj is Skeleton)
+            skeletons.Remove((Skeleton)obj);
+        else if (obj is Pirate)
+            pirates.Remove((Pirate)obj);
+        else if (obj is Squid)
+            squids.Remove((Squid)obj);
+    }
+
     public void ClearObjects()
     {
         foreach(Bag bag in bags)

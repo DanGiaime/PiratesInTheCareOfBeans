@@ -90,6 +90,22 @@ public class LevelData : MonoBehaviour {
 
         w.radius = radius;
 
+        foreach(Skeleton s in GetComponentsInChildren<Skeleton>()) {
+            w.skeletons.Add(s);
+        }
+
+        foreach(Pirate p in GetComponentsInChildren<Pirate>()) {
+            w.pirates.Add(p);
+        }
+
+        foreach(Squid s in GetComponentsInChildren<Squid>()) {
+            w.squids.Add(s);
+        }
+
+        foreach(Obstacle o in GetComponentsInChildren<Obstacle>()) {
+            w.obstacles.Add(o);
+        }
+
         Debug.Log("World initialized.");
     }
 }

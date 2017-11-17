@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Skeleton : Agent {
-	
+
 	// Update is called once per frame
 	public override void Update () {
 		CalcSteeringForces ();
@@ -36,4 +36,16 @@ public class Skeleton : Agent {
             }
         }
 	}
+
+    void OnMouseDown() {
+        if(FindObjectOfType<Tools>() && FindObjectOfType<Tools>().toolSelected == 1)
+            Die();
+    }
+
+    public void Die() {
+        GameObject p = Instantiate(deathParticles, transform.position, Quaternion.identity);
+        p.GetComponent<DeathParticles>().Type = 1;
+        FindObjectOfType<World>().RemoveObject(this);
+        Destroy(gameObject);
+    }
 }
