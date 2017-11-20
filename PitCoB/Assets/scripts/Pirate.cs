@@ -5,9 +5,7 @@ using UnityEngine;
 public class Pirate : Agent
 {
 
-	public Skeleton skeletonClosest;
-    public Obstacle obstacleClosest;
-    public Vector3 edgeAvoidTarget;
+    [HideInInspector] public static int id = 2;
 
 	// Update is called once per frame
 	public override void Update()
@@ -22,7 +20,7 @@ public class Pirate : Agent
         if (world != null)
         {
             // Find close enough pirates
-            foreach (Skeleton skeleton in world.skeletons)
+            foreach (Agent skeleton in world.skeletons)
             {
                 float dist = Vector3.Distance(this.position, skeleton.position);
                 if (dist < radiusOfCaring * 2)

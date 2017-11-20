@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Skeleton : Agent {
 
+    [HideInInspector] public static int id = 2;
+
 	// Update is called once per frame
 	public override void Update () {
 		CalcSteeringForces ();
@@ -15,7 +17,7 @@ public class Skeleton : Agent {
         if (world != null)
         {
             // Find close enough pirates
-            foreach (Pirate pirate in world.pirates)
+            foreach (Agent pirate in world.pirates)
             {
                 float dist = Vector3.Distance(this.position, pirate.position);
                 if (dist < radiusOfCaring * 3)

@@ -35,6 +35,19 @@ public abstract class Agent : Vehicle {
         base.Update();
 	}
 
+    public Vector3 Seek(Vector3 target, bool closerIsStronger)
+    {
+        Vector3 desiredVelocity = target - this.position;
+        desiredVelocity = desiredVelocity.normalized * this.maxSpeed;
+        Vector3 seekForce = desiredVelocity - this.velocity;
+        if(closerIsStronger){
+            return ForceWeight(target) * seekForce;
+        }
+        else {
+            return InverseForceWeight(target) * seekForce;
+        }
+    }
+
     public Vector3 Seek(Vector3 target)
     {
         Vector3 desiredVelocity = target - this.position;
@@ -61,6 +74,17 @@ public abstract class Agent : Vehicle {
     {
         Vector3 agentFuturePosition = agent.position + agent.velocity.normalized;
         return Flee(agentFuturePosition);
+    }
+
+    public Vector3 Flock(int id) {
+        List<Agent> agents = world.GetAgents(id);
+        Vector3 center = Vector3.zero;
+        foreach (Agent a in agents)
+        {
+            center += a.position;
+        }
+        center = center / agents.Count;
+        return Seek(center, false);
     }
 
     public Vector3 AvoidObstacle(Vector3 obstaclePosition) 
@@ -125,6 +149,11 @@ public abstract class Agent : Vehicle {
 
     public float ForceWeight(Vector3 target) {
         return 1 / Mathf.Pow(Vector3.Distance(this.position, target), 2);
+    }
+
+    public float InverseForceWeight(Vector3 target)
+    {
+        return Mathf.Pow(Vector3.Distance(this.position, target), 1);
     }
 
 	public abstract void CalcSteeringForces();

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class World : MonoBehaviour{
 
-    public List<Pirate> pirates = new List<Pirate>();
-    public List<Skeleton> skeletons = new List<Skeleton>();
-    public List<Squid> squids = new List<Squid>();
+    public List<Agent> pirates = new List<Agent>();
+    public List<Agent> skeletons = new List<Agent>();
+    public List<Agent> squids = new List<Agent>();
     public List<Obstacle> obstacles = new List<Obstacle>();
 
     public List<Bag> bags = new List<Bag>();
@@ -22,11 +22,25 @@ public class World : MonoBehaviour{
 
     public void RemoveObject(Object obj) {
         if (obj is Skeleton)
-            skeletons.Remove((Skeleton)obj);
+            skeletons.Remove((Agent)obj);
         else if (obj is Pirate)
-            pirates.Remove((Pirate)obj);
+            pirates.Remove((Agent)obj);
         else if (obj is Squid)
-            squids.Remove((Squid)obj);
+            squids.Remove((Agent)obj);
+    }
+
+    public List<Agent> GetAgents(int id) {
+        switch (id)
+        {
+            case 1:
+                return pirates;
+            case 2:
+                return skeletons;
+            case 3:
+                return squids;
+            default:
+                return null;
+        }
     }
 
     public void ClearObjects()

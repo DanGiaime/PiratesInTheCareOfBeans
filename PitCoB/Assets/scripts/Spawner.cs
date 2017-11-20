@@ -5,11 +5,6 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour {
 
-	Vehicle[] children;
-    public GameObject skeleton;
-    public GameObject pirate;
-	public GameObject PSG;
-
 	private World world;
 
 	const float MAX_X = 2f;
@@ -35,7 +30,11 @@ public class Spawner : MonoBehaviour {
             world.pirates.Add(pirate);
             pirate.world = world;
         }
-
+        foreach (Squid squid in gameObject.GetComponentsInChildren<Squid>())
+        {
+            world.squids.Add(squid);
+            squid.world = world;
+        }
 
     }
 	
