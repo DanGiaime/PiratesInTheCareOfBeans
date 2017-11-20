@@ -25,7 +25,8 @@ public abstract class Agent : Vehicle {
 	
 	// Update is called once per frame
 	public override void Update () {
-        if (ultForce == Vector3.zero)
+        Debug.Log(ultForce);
+        if (ultForce.magnitude < .1f)
         {
             ultForce += Wander();
         }
@@ -78,20 +79,57 @@ public abstract class Agent : Vehicle {
 
     public Vector3 Flock(int id) {
         List<Agent> agents = world.GetAgents(id);
-        Vector3 flockingForce = Cohesion(agents);
+        Vector3 cohesionForce = Cohesion(agents);
+        Vector3 separationForce = Separation(agents);
+        Vector3 alignmentForce = Alignment(agents);
 
-        return flockingForce;
+        return cohesionForce + separationForce + alignmentForce;
+    }
 
+    public Vector3 Alignment(List<Agent> agents)
+    {
+        Vector3 alignmentForce = Vector3.zero;
+
+        foreach (Agent a in agents)
+        {
+            if (this.GetComponent<Agent>() != a)
+            {
+                alignmentForce += a.velocity * InverseForceWeight(a.position);
+            }
+        }
+        return alignmentForce / agents.Count;
+    }
+
+
+    public Vector3 Separation(List<Agent> agents)
+    {
+        Vector3 separationForce = Vector3.zero;
+        foreach (Agent a in agents)
+        {
+            if (this.GetComponent<Agent>() != a)
+            {
+                if (Vector3.Distance(a.position, this.position) < radiusOfCaring)
+                {
+                    separationForce += AvoidObstacle(a.position);
+                }
+            }
+        }
+        return separationForce;
     }
 
     public Vector3 Cohesion(List<Agent> agents) {
         Vector3 center = Vector3.zero;
         foreach (Agent a in agents)
         {
-            center += a.position;
+            if (this.GetComponent<Agent>() != a)
+            {
+                center += a.position * ForceWeight(a.position);
+            }
+
         }
         center = center / agents.Count;
-        return Seek(center, false);
+        Vector3 cohesionForce = Seek(center, false);
+        return cohesionForce;
     }
 
     public Vector3 AvoidObstacle(Vector3 obstaclePosition) 
