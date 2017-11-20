@@ -78,6 +78,13 @@ public abstract class Agent : Vehicle {
 
     public Vector3 Flock(int id) {
         List<Agent> agents = world.GetAgents(id);
+        Vector3 flockingForce = Cohesion(agents);
+
+        return flockingForce;
+
+    }
+
+    public Vector3 Cohesion(List<Agent> agents) {
         Vector3 center = Vector3.zero;
         foreach (Agent a in agents)
         {
