@@ -36,6 +36,12 @@ public abstract class Agent : Vehicle {
         base.Update();
 	}
 
+    /// <summary>
+    /// Seek the specified target and closerIsStronger.
+    /// </summary>
+    /// <returns>The seek force.</returns>
+    /// <param name="target">Target.</param>
+    /// <param name="closerIsStronger">If set to <c>true</c> closer is stronger.</param>
     public Vector3 Seek(Vector3 target, bool closerIsStronger)
     {
         Vector3 desiredVelocity = target - this.position;
@@ -49,6 +55,11 @@ public abstract class Agent : Vehicle {
         }
     }
 
+    /// <summary>
+    /// Seek the specified target.
+    /// </summary>
+    /// <returns>The seek force.</returns>
+    /// <param name="target">Target.</param>
     public Vector3 Seek(Vector3 target)
     {
         Vector3 desiredVelocity = target - this.position;
@@ -57,6 +68,11 @@ public abstract class Agent : Vehicle {
         return ForceWeight(target) * seekForce;
     }
 
+    /// <summary>
+    /// Flee the specified target.
+    /// </summary>
+    /// <returns>The flee force.</returns>
+    /// <param name="target">Target.</param>
     public Vector3 Flee(Vector3 target)
     {
         Vector3 desiredVelocity = this.position - target;
@@ -65,18 +81,33 @@ public abstract class Agent : Vehicle {
         return ForceWeight(target) * fleeForce;
     }
 
+    /// <summary>
+    /// Pursue the specified agent.
+    /// </summary>
+    /// <returns>The pursue target.</returns>
+    /// <param name="agent">Agent.</param>
     public Vector3 Pursue(Agent agent)
     {
         Vector3 agentFuturePosition = agent.position + agent.velocity.normalized;
         return Seek(agentFuturePosition);
     }
 
+    /// <summary>
+    /// Evade the specified agent.
+    /// </summary>
+    /// <returns>The evade target.</returns>
+    /// <param name="agent">Agent.</param>
     public Vector3 Evade(Agent agent)
     {
         Vector3 agentFuturePosition = agent.position + agent.velocity.normalized;
         return Flee(agentFuturePosition);
     }
 
+    /// <summary>
+    /// Flock the specified group of agents.
+    /// </summary>
+    /// <returns>The flocking force.</returns>
+    /// <param name="id">Identifier to determine what list of agents to use.</param>
     public Vector3 Flock(int id) {
         List<Agent> agents = world.GetAgents(id);
         Vector3 cohesionForce = Cohesion(agents);
@@ -86,6 +117,11 @@ public abstract class Agent : Vehicle {
         return cohesionForce + separationForce + alignmentForce;
     }
 
+    /// <summary>
+    /// Align with the specified agents.
+    /// </summary>
+    /// <returns>The alignment force.</returns>
+    /// <param name="agents">Agents to align with.</param>
     public Vector3 Alignment(List<Agent> agents)
     {
         Vector3 alignmentForce = Vector3.zero;
@@ -100,7 +136,11 @@ public abstract class Agent : Vehicle {
         return alignmentForce / agents.Count;
     }
 
-
+    /// <summary>
+    /// Separate from the specified agents.
+    /// </summary>
+    /// <returns>The separation force.</returns>
+    /// <param name="agents">Agents to separate from.</param>
     public Vector3 Separation(List<Agent> agents)
     {
         Vector3 separationForce = Vector3.zero;
@@ -117,6 +157,11 @@ public abstract class Agent : Vehicle {
         return separationForce;
     }
 
+    /// <summary>
+    /// Seek the center of the specified agents.
+    /// </summary>
+    /// <returns>The cohesion force.</returns>
+    /// <param name="agents">Agents to seek center of.</param>
     public Vector3 Cohesion(List<Agent> agents) {
         Vector3 center = Vector3.zero;
         foreach (Agent a in agents)
@@ -132,6 +177,11 @@ public abstract class Agent : Vehicle {
         return cohesionForce;
     }
 
+    /// <summary>
+    /// Avoids the given obstacle.
+    /// </summary>
+    /// <returns>Avoid Force.</returns>
+    /// <param name="obstaclePosition">Obstacle position.</param>
     public Vector3 AvoidObstacle(Vector3 obstaclePosition) 
 	{
 		float distToObj = Vector3.Distance (this.transform.position, obstaclePosition);
@@ -147,7 +197,6 @@ public abstract class Agent : Vehicle {
 		//Vector3 objProjected = Vector3.Project (objCenter, this.transform.right);
         float dotRight = Vector3.Dot (rotation.right, objCenter);
 
-		//Is the object close to us? If not, no reason to care.
 		//Is the object to our right? turn Left!
 		if (dotRight > 0) {
             return (rotation.right) * -1 * ForceWeight(obstaclePosition);// * obstacle.Weight;
@@ -165,8 +214,10 @@ public abstract class Agent : Vehicle {
 
 	}
 
-    // wander method
-    // move at a max speed toward a random point on a circle
+    /// <summary>
+    /// Wanders around randomly
+    /// </summary>
+    /// <returns>The wander force.</returns>
     public Vector3 Wander()
     {
         // create a desired velocity vector
@@ -192,13 +243,39 @@ public abstract class Agent : Vehicle {
         return desiredVelocity;
     }
 
+    /// <summary>
+    /// Avoids all nearby obstacles.
+    /// </summary>
+    public void AvoidAllNearbyObstacles() {
+        
+        // Find close enough objects
+        foreach (Obstacle obstacle in world.obstacles)
+        {
+            float dist = Vector3.Distance(this.position, obstacle.Position);
+            if (dist < radiusOfCaring)
+            {
+                ultForce += AvoidObstacle(obstacle.Position);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Weighting where closer target = weaker force
+    /// </summary>
+    /// <returns>The force weight.</returns>
+    /// <param name="target">Target.</param>
     public float ForceWeight(Vector3 target) {
         return 1 / Mathf.Pow(Vector3.Distance(this.position, target), 2);
     }
 
+    /// <summary>
+    /// Weighting where closer target = stronger force
+    /// </summary>
+    /// <returns>The force weight.</returns>
+    /// <param name="target">Target.</param>
     public float InverseForceWeight(Vector3 target)
     {
-        return Mathf.Pow(Vector3.Distance(this.position, target), 1);
+        return Vector3.Distance(this.position, target);
     }
 
 	public abstract void CalcSteeringForces();

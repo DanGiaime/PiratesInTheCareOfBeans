@@ -16,5 +16,6 @@ public class Squid : Agent {
 
 	public override void CalcSteeringForces() {
         ultForce += Flock(Squid.id);
+        AvoidAllNearbyObstacles();
 	}
 }

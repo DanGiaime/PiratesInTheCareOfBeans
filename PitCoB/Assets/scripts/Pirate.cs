@@ -29,15 +29,7 @@ public class Pirate : Agent
                 }
             }
 
-            // Find close enough objects
-            foreach (Obstacle obstacle in world.obstacles)
-            {
-                float dist = Vector3.Distance(this.position, obstacle.Position);
-                if (dist < radiusOfCaring)
-                {
-                    ultForce += AvoidObstacle(obstacle.Position);
-                }
-            }
+            AvoidAllNearbyObstacles();
         }
 
 	}
