@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Bean : MonoBehaviour {
+<<<<<<< HEAD
     [SerializeField]
     float rotationSpeed, scaleSpeed;
     float zRot;
+=======
+>>>>>>> fcf851ea1dc162569d6a5a8ceb1e76527328fdfa
 
     // Use this for initialization
     void Start() {

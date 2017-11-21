@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Bag : Obstacle {
 
+<<<<<<< HEAD
     [HideInInspector]
     public Vector3 position;
     [SerializeField]
@@ -21,6 +22,21 @@ public class Bag : Obstacle {
 
     public override Vector3 Position {
         get {
+=======
+    [HideInInspector] public Vector3 position;
+	[SerializeField] private static float weight = 20f;
+
+	public override float Weight {
+		get {
+			return weight;
+		}
+	}
+
+    public override Vector3 Position
+    {
+        get
+        {
+>>>>>>> fcf851ea1dc162569d6a5a8ceb1e76527328fdfa
             return position;
         }
     }
