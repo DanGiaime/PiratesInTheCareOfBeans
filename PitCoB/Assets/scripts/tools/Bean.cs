@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Bean : MonoBehaviour {
-    
 
 	// Use this for initialization
 	void Start () {

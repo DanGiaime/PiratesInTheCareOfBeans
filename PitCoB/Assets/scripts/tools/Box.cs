@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Box : Obstacle {
 
+    [SerializeField] private static float weight = 10f;
+
     public float lethalTimer;
     float t;
 

@@ -20,7 +20,7 @@ public class Skeleton : Agent {
             foreach (Agent pirate in world.pirates)
             {
                 float dist = Vector3.Distance(this.position, pirate.position);
-                if (dist < radiusOfCaring * 3)
+                if (dist < radiusOfCaring * 5)
                 {
                     ultForce += Pursue(pirate);
                 }

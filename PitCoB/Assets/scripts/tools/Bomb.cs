@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour {
 
+    [SerializeField] private static float weight = 15f;
+
 	// Use this for initialization
 	void Start () {
 		
