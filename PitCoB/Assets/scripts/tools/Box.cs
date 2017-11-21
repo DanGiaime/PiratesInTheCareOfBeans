@@ -20,7 +20,7 @@ public class Box : Obstacle {
 
     public override float Weight {
         get {
-            return 0;
+            return weight;
         }
     }
 
@@ -39,7 +39,7 @@ public class Box : Obstacle {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	public override void Update () {
 		if(t > 0) {
             t -= Time.deltaTime;
             if(t <= 0) {
@@ -48,5 +48,6 @@ public class Box : Obstacle {
         }
 
         transform.position = Vector3.MoveTowards(transform.position, target, fallSpeed * Time.deltaTime);
+        base.Update();
     }
 }

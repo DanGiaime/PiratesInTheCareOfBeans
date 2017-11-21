@@ -23,13 +23,13 @@ public class Skeleton : Agent {
                 foreach (Agent pirate in world.pirates)
                 {
                     float dist = Vector3.Distance(this.position, pirate.position);
-                    if (dist < radiusOfCaring * 5)
+                    if (dist < radiusOfCaring * 10)
                     {
                         ultForce += Pursue(pirate);
                     }
                 }
 
-                AvoidAllNearbyObstacles();
+                AvoidAllNearbyObstacles(true);
             } else {
                 ultForce += Seek(world.center, false);
             }

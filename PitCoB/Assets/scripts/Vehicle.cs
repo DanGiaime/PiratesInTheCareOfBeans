@@ -34,6 +34,7 @@ public abstract class Vehicle : MonoBehaviour {
             velocity = velocity.normalized * maxSpeed;
         }
 		position += velocity * Time.deltaTime;
+        position.z = 0;
 		transform.position = new Vector3(position.x, position.y, 0);
 		acceleration = Vector3.zero;
         rotation.rotation = Quaternion.Euler(0, 0, Mathf.Rad2Deg * Mathf.Atan2(velocity.x, velocity.y));

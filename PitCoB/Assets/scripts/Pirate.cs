@@ -37,7 +37,7 @@ public class Pirate : Agent
             }
             else {
                 ultForce += Seek(world.center, false);
-                Debug.Log("OUTSIDE: " + ultForce);
+                //Debug.Log("OUTSIDE: " + ultForce);
             }
 
         }

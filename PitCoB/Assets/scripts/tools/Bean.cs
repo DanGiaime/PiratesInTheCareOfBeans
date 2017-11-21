@@ -7,6 +7,7 @@ public class Bean : MonoBehaviour {
     float rotationSpeed, scaleSpeed;
     float zRot;
 
+
     // Use this for initialization
     void Start() {
 

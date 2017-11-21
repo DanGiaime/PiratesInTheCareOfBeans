@@ -253,7 +253,7 @@ public abstract class Agent : Vehicle {
     /// <summary>
     /// Avoids all nearby obstacles.
     /// </summary>
-    public void AvoidAllNearbyObstacles() {
+    public void AvoidAllNearbyObstacles(bool Seek = false) {
         
         // Find close enough objects
         foreach (Obstacle obstacle in world.obstacles)
@@ -261,7 +261,22 @@ public abstract class Agent : Vehicle {
             float dist = Vector3.Distance(this.position, obstacle.Position);
             if (dist < radiusOfCaring)
             {
-                ultForce += AvoidObstacle(obstacle.Position);
+                if (obstacle is BombTarget)
+                {
+                    ultForce += this.Flee(obstacle.Position) * obstacle.Weight;
+                }
+                else if (obstacle is Bag && Seek)
+                {
+                    ultForce += this.Seek(obstacle.Position) * obstacle.Weight;
+                }
+                else if (obstacle is Box && Seek)
+                {
+                    ultForce += this.Seek(obstacle.Position) * obstacle.Weight;
+                }
+                else
+                {
+                    ultForce += AvoidObstacle(obstacle.Position) * obstacle.Weight;
+                }
             }
         }
     }

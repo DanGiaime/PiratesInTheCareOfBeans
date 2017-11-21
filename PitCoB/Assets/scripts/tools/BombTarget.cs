@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BombTarget : Obstacle {
     [SerializeField]
-    float weight;
+    private static float weight = 15f;
 
     [SerializeField]
     float timer, radius;

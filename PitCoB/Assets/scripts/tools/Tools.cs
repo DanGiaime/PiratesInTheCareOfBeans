@@ -49,6 +49,7 @@ public class Tools : MonoBehaviour {
             //Bean bag
             case 0:
                 sc.GetComponent<World>().bags.Add(obj.GetComponent<Bag>());
+                sc.GetComponent<World>().obstacles.Add(obj.GetComponent<Bag>());
                 obj.GetComponent<Bag>().target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 obj.transform.position = new Vector2(obj.transform.position.x, obj.transform.position.y + 10f);
                 break;
@@ -64,6 +65,7 @@ public class Tools : MonoBehaviour {
             //Box
             case 2:
                 sc.GetComponent<World>().boxes.Add(obj.GetComponent<Box>());
+                sc.GetComponent<World>().obstacles.Add(obj.GetComponent<Box>());
                 obj.GetComponent<Box>().target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 obj.transform.position = new Vector2(obj.transform.position.x, obj.transform.position.y + 10f);
                 break;
@@ -74,6 +76,7 @@ public class Tools : MonoBehaviour {
                 Instantiate(toolObjects[4], Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
 
                 obj.GetComponent<Bomb>().target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                sc.GetComponent<World>().obstacles.Add(obj.GetComponent<Bomb>());
                 obj.transform.position = new Vector2(obj.transform.position.x, obj.transform.position.y + 70f);
                 break;
         }

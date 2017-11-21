@@ -34,7 +34,8 @@ public class Bag : Obstacle {
     }
 
     // Update is called once per frame
-    void Update() {
+    public override void Update() {
         transform.position = Vector3.MoveTowards(transform.position, target, fallSpeed * Time.deltaTime);
+        base.Update();
     }
 }
