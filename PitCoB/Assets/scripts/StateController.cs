@@ -24,10 +24,13 @@ public class StateController : MonoBehaviour {
     [SerializeField]
     AudioClip coinSound;
 
+    World w;
+
 	// Use this for initialization
 	void Start () {
         a = GetComponent<AudioSource>();
         ChangeState(startingState);
+        w = GetComponent<World>();
 	}
 	
 	// Update is called once per frame
@@ -48,13 +51,17 @@ public class StateController : MonoBehaviour {
 
         //Level object cleanup
         if(currentState == States.Game) {
-            if (state != States.Lose && state != States.Win && loadedLevelObject)
+            if (state != States.Lose && state != States.Win && loadedLevelObject) {
                 Destroy(loadedLevelObject);
+                w.ClearObjects();
+            }
         } else
             a.PlayOneShot(coinSound);
 
-        if((currentState == States.Lose || currentState == States.Win) && loadedLevelObject)
+        if ((currentState == States.Lose || currentState == States.Win) && loadedLevelObject) {
+            w.ClearObjects();
             Destroy(loadedLevelObject);
+        }
 
         currentState = state;
 
