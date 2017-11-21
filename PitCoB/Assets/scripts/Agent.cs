@@ -29,7 +29,7 @@ public abstract class Agent : Vehicle {
 	
 	// Update is called once per frame
 	public override void Update () {
-        Debug.Log(ultForce);
+        //Debug.Log(ultForce);
         if (ultForce.magnitude < .1f)
         {
             ultForce += Wander();

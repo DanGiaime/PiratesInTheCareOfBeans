@@ -15,7 +15,17 @@ public class Squid : Agent {
     }
 
 	public override void CalcSteeringForces() {
-        ultForce += Flock(Squid.id);
-        AvoidAllNearbyObstacles();
+        if (world != null)
+        {
+            if (world.IsInBounds(position))
+            {
+                ultForce += Flock(Squid.id);
+            }
+            else {
+                ultForce += Seek(world.center);
+            }
+            AvoidAllNearbyObstacles();
+
+        }
 	}
 }

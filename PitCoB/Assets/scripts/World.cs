@@ -14,10 +14,23 @@ public class World : MonoBehaviour{
     public List<Bean> beans = new List<Bean>();
     public List<Bomb> bombs = new List<Bomb>();
 
-    public float radius;
+    public float radiusY = 1f;
+    public float radiusX = 1f;
+    public Vector2 center;
 
     void Start() {
         
+    }
+
+    public bool IsInBounds(Vector2 position) {
+        float x = position.x;
+        float y = position.y;
+        float h = center.x;
+        float k = center.y;
+        float xTerm = Mathf.Pow(x - h, 2) / Mathf.Pow(radiusX, 2);
+        float yTerm = Mathf.Pow(y - k, 2) / Mathf.Pow(radiusY, 2);
+        bool inBounds = (xTerm + yTerm <= 1);
+        return inBounds;
     }
 
     public void RemoveObject(Object obj) {

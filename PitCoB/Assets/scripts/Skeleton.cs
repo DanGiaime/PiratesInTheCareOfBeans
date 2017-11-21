@@ -16,17 +16,23 @@ public class Skeleton : Agent {
 	public override void CalcSteeringForces() {
         if (world != null)
         {
-            // Find close enough pirates
-            foreach (Agent pirate in world.pirates)
+            if (world.IsInBounds(position))
             {
-                float dist = Vector3.Distance(this.position, pirate.position);
-                if (dist < radiusOfCaring * 5)
-                {
-                    ultForce += Pursue(pirate);
-                }
-            }
 
-            AvoidAllNearbyObstacles();
+                // Find close enough pirates
+                foreach (Agent pirate in world.pirates)
+                {
+                    float dist = Vector3.Distance(this.position, pirate.position);
+                    if (dist < radiusOfCaring * 5)
+                    {
+                        ultForce += Pursue(pirate);
+                    }
+                }
+
+                AvoidAllNearbyObstacles();
+            } else {
+                ultForce += Seek(world.center, false);
+            }
         }
 	}
 
