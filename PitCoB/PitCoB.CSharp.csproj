@@ -105,6 +105,7 @@
     <Compile Include="Assets\scripts\tools\Bag.cs" />
     <Compile Include="Assets\scripts\tools\Bean.cs" />
     <Compile Include="Assets\scripts\tools\Bomb.cs" />
+    <Compile Include="Assets\scripts\tools\BombTarget.cs" />
     <Compile Include="Assets\scripts\tools\Box.cs" />
     <Compile Include="Assets\scripts\tools\Tools.cs" />
   </ItemGroup>

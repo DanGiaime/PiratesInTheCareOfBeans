@@ -27,6 +27,8 @@ public class World : MonoBehaviour{
             pirates.Remove((Agent)obj);
         else if (obj is Squid)
             squids.Remove((Agent)obj);
+        else if (obj is Obstacle)
+            obstacles.Remove((Obstacle)obj);
     }
 
     public List<Agent> GetAgents(int id) {
@@ -62,4 +64,21 @@ public class World : MonoBehaviour{
         beans = new List<Bean>();
         bombs = new List<Bomb>();
     }
+
+    public void DoExplosion(Vector2 origin, float radius)
+    {
+        List<Skeleton> dead = new List<Skeleton>();
+
+        foreach (Skeleton s in skeletons)
+        {
+            if (Vector2.Distance(s.position, origin) < radius)
+                dead.Add(s);
+        }
+
+        foreach (Skeleton s in dead)
+        {
+            s.Die();
+        }
+    }
+
 }

@@ -17,9 +17,13 @@ public abstract class Agent : Vehicle {
 	public World world;
 	protected Vector3 ultForce;
 
+    Animator anim;
+
 	// Use this for initialization
 	public override void Start () {
 		ultForce = Vector3.zero;
+        anim = GetComponent<Animator>();
+
         base.Start();
 	}
 	
@@ -32,7 +36,10 @@ public abstract class Agent : Vehicle {
         }
 
         // Apply forces
-        ApplyForce(ultForce.normalized * maxForce);
+        Vector3 final = ultForce.normalized * maxForce;
+        ApplyForce(final);
+        anim.SetFloat("ForceX", final.x);
+        anim.SetFloat("ForceY", final.y);
         base.Update();
 	}
 

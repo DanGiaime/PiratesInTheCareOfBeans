@@ -22,6 +22,9 @@ public class Tools : MonoBehaviour {
     UIController uic;
     public LevelData ld;
 
+    [SerializeField]
+    LayerMask skeletonMask;
+
 	// Use this for initialization
 	void Start () {
         sc = FindObjectOfType<StateController>();
@@ -39,27 +42,33 @@ public class Tools : MonoBehaviour {
     {
         Debug.Log("Used tool");
         ld.DecreaseToolCount(toolSelected);
+        
+        GameObject obj = Instantiate(toolObjects[toolSelected], Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
 
-        if(toolSelected != 1) {
-            GameObject obj = Instantiate(toolObjects[toolSelected], Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
+        switch (toolSelected) {
+            //Bean bag
+            case 0:
+                sc.GetComponent<World>().bags.Add(obj.GetComponent<Bag>());
+                break;
 
-            switch (toolSelected) {
-                //Bean bag
-                case 0:
-                    sc.GetComponent<World>().bags.Add(obj.GetComponent<Bag>());
-                    break;
+            //Projectile bean
+            case 1:
+                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, skeletonMask);
+                if (hit)
+                    hit.collider.GetComponent<Skeleton>().Die();
 
-                //Box
-                case 2:
-                    sc.GetComponent<World>().boxes.Add(obj.GetComponent<Box>());
-                    break;
+                break;
 
-                //Bean Bomb
-                case 3:
-                    
-                    sc.GetComponent<World>().bombs.Add(obj.GetComponent<Bomb>());
-                    break;
-            }
+            //Box
+            case 2:
+                sc.GetComponent<World>().boxes.Add(obj.GetComponent<Box>());
+                break;
+
+            //Bean Bomb
+            case 3:
+                
+                
+                break;
         }
 
         if (ld.toolCounts[toolSelected] == 0)

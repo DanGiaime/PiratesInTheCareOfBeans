@@ -25,6 +25,9 @@ public class LevelData : MonoBehaviour {
     [HideInInspector]
     public bool Over;
 
+    [SerializeField]
+    LayerMask mask;
+
     public void InitializeLevelData() {
         uiTools = UIController.uiTools;
         UpdateTools(true);
@@ -58,12 +61,14 @@ public class LevelData : MonoBehaviour {
                     EndLevel(w.pirates.Count >= targetAlive);
                 }
             }
+
+            Over = CheckValidMouse();
         }
 	}
 
-    private void OnMouseEnter() { Over = true; }
-
-    private void OnMouseExit() { Over = false; }
+    bool CheckValidMouse() {
+        return (Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, 0f, mask));
+    }
 
     void UpdateTools(bool hideZero = false) {
         for(int i = 0; i < uiTools.Length; i++) {
