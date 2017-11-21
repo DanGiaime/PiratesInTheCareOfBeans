@@ -5,14 +5,19 @@ using UnityEngine;
 
 public class Bag : Obstacle {
 
-    [HideInInspector] public Vector3 position;
-	[SerializeField] private static float weight = 20f;
+    [HideInInspector]
+    public Vector3 position;
+    [SerializeField]
+    private static float weight = 10f;
 
-	public override float Weight {
-		get {
-			return weight;
-		}
-	}
+    public Vector2 target;
+    public float fallSpeed;
+
+    public override float Weight {
+        get {
+            return weight;
+        }
+    }
 
     public override Vector3 Position
     {
@@ -24,12 +29,12 @@ public class Bag : Obstacle {
 
 
     // Use this for initialization
-    void Start () {
+    void Start() {
         this.position = gameObject.transform.position;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    }
+
+    // Update is called once per frame
+    void Update() {
+        transform.position = Vector3.MoveTowards(transform.position, target, fallSpeed * Time.deltaTime);
+    }
 }

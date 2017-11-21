@@ -12,6 +12,10 @@ public class Box : Obstacle {
 
     public float radius;
 
+    public Vector2 target;
+    [SerializeField]
+    float fallSpeed = 30;
+
     World w;
 
     public override float Weight {
@@ -42,5 +46,7 @@ public class Box : Obstacle {
                 t = 0;
             }
         }
-	}
+
+        transform.position = Vector3.MoveTowards(transform.position, target, fallSpeed * Time.deltaTime);
+    }
 }

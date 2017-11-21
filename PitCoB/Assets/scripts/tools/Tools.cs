@@ -49,12 +49,14 @@ public class Tools : MonoBehaviour {
             //Bean bag
             case 0:
                 sc.GetComponent<World>().bags.Add(obj.GetComponent<Bag>());
+                obj.GetComponent<Bag>().target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                obj.transform.position = new Vector2(obj.transform.position.x, obj.transform.position.y + 10f);
                 break;
 
             //Projectile bean
             case 1:
                 RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, skeletonMask);
-                if (hit)
+                if (hit.collider && hit.collider.GetComponent<Skeleton>())
                     hit.collider.GetComponent<Skeleton>().Die();
 
                 break;
@@ -62,12 +64,17 @@ public class Tools : MonoBehaviour {
             //Box
             case 2:
                 sc.GetComponent<World>().boxes.Add(obj.GetComponent<Box>());
+                obj.GetComponent<Box>().target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                obj.transform.position = new Vector2(obj.transform.position.x, obj.transform.position.y + 10f);
                 break;
 
             //Bean Bomb
             case 3:
-                
-                
+
+                Instantiate(toolObjects[4], Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
+
+                obj.GetComponent<Bomb>().target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                obj.transform.position = new Vector2(obj.transform.position.x, obj.transform.position.y + 70f);
                 break;
         }
 
