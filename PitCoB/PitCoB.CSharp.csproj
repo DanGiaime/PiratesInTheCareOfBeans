@@ -87,6 +87,7 @@
     <Compile Include="Assets\DeathParticles.cs" />
     <Compile Include="Assets\Destroyer.cs" />
     <Compile Include="Assets\scripts\Agent.cs" />
+    <Compile Include="Assets\scripts\Collision.cs" />
     <Compile Include="Assets\scripts\DynamicSpriteSorter.cs" />
     <Compile Include="Assets\scripts\ForceAnimationTest.cs" />
     <Compile Include="Assets\scripts\IWeigh.cs" />

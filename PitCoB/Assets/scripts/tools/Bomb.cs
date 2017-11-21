@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour {
 
+    public Vector2 target;
+    public float fallSpeed = 30f;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -11,6 +14,6 @@ public class Bomb : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        transform.position = Vector3.MoveTowards(transform.position, target, fallSpeed * Time.deltaTime);
+    }
 }
