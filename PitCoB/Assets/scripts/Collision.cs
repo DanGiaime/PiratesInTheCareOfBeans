@@ -5,7 +5,7 @@ public class Collision : MonoBehaviour
 {
 
     private World world;
-    static float agentRadius = .1f;
+    private static float agentRadius = .01f;
     public GameObject skeletonPrefab;
 
 	// Use this for initialization
@@ -17,11 +17,11 @@ public class Collision : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-        foreach (Skeleton skele in world.skeletons)
+        for (int j = 0; j < world.skeletons.Count; j++)
         {
             for (int i = 0; i < world.pirates.Count; i++)
             {
-                if (AreCollided(skele.position, world.pirates[i].position))
+                if (AreCollided(world.skeletons[j].position, world.pirates[i].position))
                 {
                     Vector3 position = world.pirates[i].position;
                     Destroy(world.pirates[i].gameObject);
@@ -29,6 +29,7 @@ public class Collision : MonoBehaviour
                     i--;
                     GameObject newSkeleton = Instantiate(skeletonPrefab, position, Quaternion.identity, transform);
                     world.skeletons.Add(newSkeleton.GetComponent<Skeleton>());
+                    newSkeleton.GetComponent<Skeleton>().world = world;
                 }
             }
         }
@@ -39,7 +40,7 @@ public class Collision : MonoBehaviour
         
 
         //Check if collided
-        bool collided = (2 * agentRadius > Vector3.Distance(a, b));
+        bool collided = (2 * Collision.agentRadius > Vector3.Distance(a, b));
         return collided;
     }
 }

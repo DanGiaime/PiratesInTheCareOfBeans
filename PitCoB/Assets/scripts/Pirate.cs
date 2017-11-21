@@ -19,17 +19,27 @@ public class Pirate : Agent
 	{
         if (world != null)
         {
-            // Find close enough pirates
-            foreach (Agent skeleton in world.skeletons)
+            if (world.IsInBounds(this.position))
             {
-                float dist = Vector3.Distance(this.position, skeleton.position);
-                if (dist < radiusOfCaring * 2)
+                Debug.Log("INSIDE");
+
+                // Find close enough pirates
+                foreach (Agent skeleton in world.skeletons)
                 {
-                    ultForce += Evade(skeleton);
+                    float dist = Vector3.Distance(this.position, skeleton.position);
+                    if (dist < radiusOfCaring * 2)
+                    {
+                        ultForce += Evade(skeleton);
+                    }
                 }
+                AvoidAllNearbyObstacles();
+
+            }
+            else {
+                ultForce += Seek(world.center, false);
+                Debug.Log("OUTSIDE: " + ultForce);
             }
 
-            AvoidAllNearbyObstacles();
         }
 
 	}
