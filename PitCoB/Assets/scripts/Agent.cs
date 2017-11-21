@@ -38,8 +38,8 @@ public abstract class Agent : Vehicle {
         // Apply forces
         Vector3 final = ultForce.normalized * maxForce;
         ApplyForce(final);
-        anim.SetFloat("ForceX", final.x);
-        anim.SetFloat("ForceY", final.y);
+        anim.SetFloat("ForceX", velocity.x);
+        anim.SetFloat("ForceY", velocity.y);
         base.Update();
 	}
 
@@ -95,7 +95,7 @@ public abstract class Agent : Vehicle {
     /// <param name="agent">Agent.</param>
     public Vector3 Pursue(Agent agent)
     {
-        Vector3 agentFuturePosition = agent.position + agent.velocity.normalized;
+        Vector3 agentFuturePosition = agent.position + agent.velocity;
         return Seek(agentFuturePosition);
     }
 
@@ -106,7 +106,7 @@ public abstract class Agent : Vehicle {
     /// <param name="agent">Agent.</param>
     public Vector3 Evade(Agent agent)
     {
-        Vector3 agentFuturePosition = agent.position + agent.velocity.normalized;
+        Vector3 agentFuturePosition = agent.position + agent.velocity;
         return Flee(agentFuturePosition);
     }
 
