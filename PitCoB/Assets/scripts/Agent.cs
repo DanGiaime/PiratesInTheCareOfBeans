@@ -118,10 +118,15 @@ public abstract class Agent : Vehicle {
     public Vector3 Flock(int id) {
         List<Agent> agents = world.GetAgents(id);
         Vector3 cohesionForce = Cohesion(agents);
-        Vector3 separationForce = Separation(agents);
-        Vector3 alignmentForce = Alignment(agents);
+        if (cohesionForce.magnitude > 0f)
+        {
+            Vector3 separationForce = Separation(agents);
+            Vector3 alignmentForce = Alignment(agents);
 
-        return cohesionForce + separationForce + alignmentForce;
+            return cohesionForce + separationForce + alignmentForce;
+        } else {
+            return Vector3.zero;
+        }
     }
 
     /// <summary>
@@ -171,15 +176,20 @@ public abstract class Agent : Vehicle {
     /// <param name="agents">Agents to seek center of.</param>
     public Vector3 Cohesion(List<Agent> agents) {
         Vector3 center = Vector3.zero;
+        int count = 0;
+
         foreach (Agent a in agents)
         {
-            if (this.GetComponent<Agent>() != a)
+            //Vector2 objCenter = a.position - this.transform.position;
+            //float dotForward = Vector2.Dot(rotation.forward, objCenter);
+            if (this.GetComponent<Agent>() != a/* && dotForward > 0*/)
             {
-                center += a.position * ForceWeight(a.position);
+                center += a.position;
+                count++;
             }
 
         }
-        center = center / agents.Count;
+        center = center / count;
         Vector3 cohesionForce = Seek(center, false);
         return cohesionForce;
     }

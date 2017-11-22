@@ -24,7 +24,7 @@ public class Squid : Agent {
             else {
                 ultForce += Seek(world.center);
             }
-            AvoidAllNearbyObstacles();
+            AvoidAllNearbyObstacles(true);
 
         }
 	}
