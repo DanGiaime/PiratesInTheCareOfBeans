@@ -42,6 +42,12 @@ public class World : MonoBehaviour{
             squids.Remove((Agent)obj);
         else if (obj is Obstacle)
             obstacles.Remove((Obstacle)obj);
+
+        if (FindObjectOfType<LevelData>()) {
+            FindObjectOfType<LevelData>().CheckWinStates();
+        } else {
+            Debug.Log("No level data found");
+        }
     }
 
     public List<Agent> GetAgents(int id) {
@@ -72,15 +78,31 @@ public class World : MonoBehaviour{
         foreach (Bomb bomb in bombs)
             Destroy(bomb.gameObject);
 
+        for(int i = 0; i < pirates.Count; i++) {
+            Destroy(pirates[i].gameObject);
+        }
+
+        for (int i = 0; i < skeletons.Count; i++) {
+            Destroy(skeletons[i].gameObject);
+        }
+
+        for (int i = 0; i < squids.Count; i++) {
+            Destroy(squids[i].gameObject);
+        }
+
         bags = new List<Bag>();
         boxes = new List<Box>();
         beans = new List<Bean>();
         bombs = new List<Bomb>();
+        pirates = new List<Agent>();
+        skeletons = new List<Agent>();
+        squids = new List<Agent>();
     }
 
     public void DoExplosion(Vector2 origin, float radius)
     {
         List<Skeleton> dead = new List<Skeleton>();
+        List<Squid> deadSquids = new List<Squid>();
 
         foreach (Skeleton s in skeletons)
         {
@@ -90,6 +112,15 @@ public class World : MonoBehaviour{
 
         foreach (Skeleton s in dead)
         {
+            s.Die();
+        }
+
+        foreach (Squid s in squids) {
+            if (Vector2.Distance(s.position, origin) < radius)
+                deadSquids.Add(s);
+        }
+
+        foreach (Squid s in deadSquids) {
             s.Die();
         }
     }

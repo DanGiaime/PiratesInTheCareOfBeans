@@ -28,4 +28,11 @@ public class Squid : Agent {
 
         }
 	}
+
+    public void Die() {
+        GameObject p = Instantiate(deathParticles, transform.position, Quaternion.identity);
+        p.GetComponent<DeathParticles>().Type = 2;
+        FindObjectOfType<World>().RemoveObject(this);
+        Destroy(gameObject);
+    }
 }

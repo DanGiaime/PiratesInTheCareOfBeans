@@ -31,6 +31,13 @@ public class Collision : MonoBehaviour
                     GameObject newSkeleton = Instantiate(skeletonPrefab, position, Quaternion.identity, transform);
                     world.skeletons.Add(newSkeleton.GetComponent<Skeleton>());
                     newSkeleton.GetComponent<Skeleton>().world = world;
+
+
+                    if (FindObjectOfType<LevelData>()) {
+                        FindObjectOfType<LevelData>().CheckWinStates();
+                    } else {
+                        Debug.Log("No level data found");
+                    }
                 }
             }
         }

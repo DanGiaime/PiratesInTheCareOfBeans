@@ -56,9 +56,11 @@ public class Tools : MonoBehaviour {
 
             //Projectile bean
             case 1:
-                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, skeletonMask);
-                if (hit.collider && hit.collider.GetComponent<Skeleton>())
+                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, 1f, skeletonMask);
+                Debug.Log(hit.collider);
+                if (hit.collider && hit.collider.GetComponent<Skeleton>()) {
                     hit.collider.GetComponent<Skeleton>().Die();
+                }
 
                 break;
 

@@ -72,26 +72,44 @@ public class LevelData : MonoBehaviour {
 
     void UpdateTools(bool hideZero = false) {
         for(int i = 0; i < uiTools.Length; i++) {
+
             if (hideZero && toolCounts[i] == 0)
                 uiTools[i].SetActive(false);
-            else
+            else {
+                uiTools[i].SetActive(true);
                 uiTools[i].GetComponentInChildren<Text>().text = "" + toolCounts[i];
+            }
         }
     }
 
     void EndLevel(bool won = false) {
-        w.ClearObjects();
-
         timerText.text = "0:00";
         if (won)
             sc.ChangeState(States.Win);
         else
             sc.ChangeState(States.Lose);
+
+        w.ClearObjects();
     }
 
     public void DecreaseToolCount(int tool) {
         toolCounts[tool]--;
-        UpdateTools(false);
+        uiTools[tool].GetComponentInChildren<Text>().text = "" + toolCounts[tool];
+    }
+
+    public void CheckWinStates() {
+        
+        if (sc.currentState == States.Game) {
+            if (w.pirates.Count < targetAlive) {
+                EndLevel();
+                return;
+            }
+
+            if (w.skeletons.Count == 0) {
+                EndLevel(true);
+                return;
+            }
+        }
     }
 
     void InitWorld() {

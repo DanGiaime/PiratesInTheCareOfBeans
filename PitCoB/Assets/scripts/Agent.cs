@@ -281,7 +281,7 @@ public abstract class Agent : Vehicle {
                 }
             }
         }
-        Debug.Log(ultForce);
+        //Debug.Log(ultForce);
     }
 
     /// <summary>
