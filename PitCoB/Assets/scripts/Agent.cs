@@ -51,9 +51,9 @@ public abstract class Agent : Vehicle {
     /// <param name="closerIsStronger">If set to <c>true</c> closer is stronger.</param>
     public Vector3 Seek(Vector3 target, bool closerIsStronger)
     {
-        Vector3 desiredVelocity = target - this.position;
+        Vector2 desiredVelocity = target - this.position;
         desiredVelocity = desiredVelocity.normalized * this.maxSpeed;
-        Vector3 seekForce = desiredVelocity - this.velocity;
+        Vector2 seekForce = desiredVelocity - (Vector2)this.velocity;
         if(closerIsStronger){
             return ForceWeight(target) * seekForce;
         }
@@ -192,17 +192,17 @@ public abstract class Agent : Vehicle {
     public Vector3 AvoidObstacle(Vector3 obstaclePosition) 
 	{
 		float distToObj = Vector2.Distance (this.transform.position, obstaclePosition);
-		Vector3 objCenter = obstaclePosition - this.transform.position;
+		Vector2 objCenter = obstaclePosition - this.transform.position;
 
 
-        float dotForward = Vector3.Dot (rotation.forward, objCenter);
+        float dotForward = Vector2.Dot (rotation.forward, objCenter);
 
 		//Is the object in front of us? If not, no reason to care.
 		if (dotForward < 0)
 			return Vector3.zero;
 
 		//Vector3 objProjected = Vector3.Project (objCenter, this.transform.right);
-        float dotRight = Vector3.Dot (rotation.right, objCenter);
+        float dotRight = Vector2.Dot (rotation.right, objCenter);
 
 		//Is the object to our right? turn Left!
 		if (dotRight > 0) {
@@ -260,19 +260,18 @@ public abstract class Agent : Vehicle {
         {
             if (obstacle != null) {
                 float dist = Vector2.Distance(this.position, obstacle.Position);
-                if (dist < radiusOfCaring) {
-                    if (obstacle is BombTarget) {
+                if (dist < radiusOfCaring * 2) {
+                    if (obstacle is Bomb) {
                         ultForce += this.Flee(obstacle.Position) * obstacle.Weight;
                     } else if (obstacle is Bag && Seek) {
-                        ultForce += this.Seek(obstacle.Position) * obstacle.Weight;
-                    } else if (obstacle is Box && Seek) {
-                        ultForce += this.Seek(obstacle.Position) * obstacle.Weight;
+                        ultForce += this.Seek(obstacle.Position, true) * obstacle.Weight;
                     } else {
                         ultForce += AvoidObstacle(obstacle.Position) * obstacle.Weight;
                     }
                 }
             }
         }
+        Debug.Log(ultForce);
     }
 
     /// <summary>

@@ -19,6 +19,6 @@ public abstract class Obstacle : MonoBehaviour, IWeigh {
 	
 	// Update is called once per frame
 	public virtual void Update () {
-        transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        //transform.position = new Vector3(transform.position.x, transform.position.y, 0);
 	}
 }
