@@ -17,6 +17,7 @@ public class Destroyer : MonoBehaviour {
 		if(t > 0) {
             t -= Time.deltaTime;
             if(t <= 0) {
+
                 Destroy(gameObject);
             }
         }

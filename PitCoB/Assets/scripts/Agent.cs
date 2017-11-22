@@ -155,7 +155,7 @@ public abstract class Agent : Vehicle {
         {
             if (this.GetComponent<Agent>() != a)
             {
-                if (Vector3.Distance(a.position, this.position) < radiusOfCaring)
+                if (Vector2.Distance(a.position, this.position) < radiusOfCaring)
                 {
                     separationForce += AvoidObstacle(a.position);
                 }
@@ -191,7 +191,7 @@ public abstract class Agent : Vehicle {
     /// <param name="obstaclePosition">Obstacle position.</param>
     public Vector3 AvoidObstacle(Vector3 obstaclePosition) 
 	{
-		float distToObj = Vector3.Distance (this.transform.position, obstaclePosition);
+		float distToObj = Vector2.Distance (this.transform.position, obstaclePosition);
 		Vector3 objCenter = obstaclePosition - this.transform.position;
 
 
@@ -258,24 +258,18 @@ public abstract class Agent : Vehicle {
         // Find close enough objects
         foreach (Obstacle obstacle in world.obstacles)
         {
-            float dist = Vector3.Distance(this.position, obstacle.Position);
-            if (dist < radiusOfCaring)
-            {
-                if (obstacle is BombTarget)
-                {
-                    ultForce += this.Flee(obstacle.Position) * obstacle.Weight;
-                }
-                else if (obstacle is Bag && Seek)
-                {
-                    ultForce += this.Seek(obstacle.Position) * obstacle.Weight;
-                }
-                else if (obstacle is Box && Seek)
-                {
-                    ultForce += this.Seek(obstacle.Position) * obstacle.Weight;
-                }
-                else
-                {
-                    ultForce += AvoidObstacle(obstacle.Position) * obstacle.Weight;
+            if (obstacle != null) {
+                float dist = Vector2.Distance(this.position, obstacle.Position);
+                if (dist < radiusOfCaring) {
+                    if (obstacle is BombTarget) {
+                        ultForce += this.Flee(obstacle.Position) * obstacle.Weight;
+                    } else if (obstacle is Bag && Seek) {
+                        ultForce += this.Seek(obstacle.Position) * obstacle.Weight;
+                    } else if (obstacle is Box && Seek) {
+                        ultForce += this.Seek(obstacle.Position) * obstacle.Weight;
+                    } else {
+                        ultForce += AvoidObstacle(obstacle.Position) * obstacle.Weight;
+                    }
                 }
             }
         }
@@ -287,7 +281,7 @@ public abstract class Agent : Vehicle {
     /// <returns>The force weight.</returns>
     /// <param name="target">Target.</param>
     public float ForceWeight(Vector3 target) {
-        return 1 / Mathf.Pow(Vector3.Distance(this.position, target), 2);
+        return 1 / Mathf.Pow(Vector2.Distance(this.position, target), 2);
     }
 
     /// <summary>
@@ -297,7 +291,7 @@ public abstract class Agent : Vehicle {
     /// <param name="target">Target.</param>
     public float InverseForceWeight(Vector3 target)
     {
-        return Vector3.Distance(this.position, target);
+        return Vector2.Distance(this.position, target);
     }
 
 	public abstract void CalcSteeringForces();

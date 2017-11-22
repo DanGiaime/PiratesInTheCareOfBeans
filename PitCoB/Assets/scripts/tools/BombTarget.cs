@@ -32,10 +32,13 @@ public class BombTarget : Obstacle {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	public override void Update () {
 		if(t < timer) {
             t += Time.deltaTime;
             if(t >= timer) {
+                if (GetComponent<Obstacle>() != null)
+                    FindObjectOfType<World>().RemoveObject(GetComponent<Obstacle>());
+
                 Explode();
             }
         }

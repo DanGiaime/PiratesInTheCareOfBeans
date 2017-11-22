@@ -26,7 +26,7 @@ public class Pirate : Agent
                 // Find close enough pirates
                 foreach (Agent skeleton in world.skeletons)
                 {
-                    float dist = Vector3.Distance(this.position, skeleton.position);
+                    float dist = Vector2.Distance(this.position, skeleton.position);
                     if (dist < radiusOfCaring * 2)
                     {
                         ultForce += Evade(skeleton);

@@ -22,7 +22,7 @@ public class Skeleton : Agent {
                 // Find close enough pirates
                 foreach (Agent pirate in world.pirates)
                 {
-                    float dist = Vector3.Distance(this.position, pirate.position);
+                    float dist = Vector2.Distance(this.position, pirate.position);
                     if (dist < radiusOfCaring * 10)
                     {
                         ultForce += Pursue(pirate);

@@ -21,7 +21,7 @@ public class Collision : MonoBehaviour
         {
             for (int i = 0; i < world.pirates.Count; i++)
             {
-                Debug.Log(Vector3.Distance(world.skeletons[j].position, world.pirates[i].position) < agentRadius * 2);
+                Debug.Log(Vector2.Distance(world.skeletons[j].position, world.pirates[i].position) < agentRadius * 2);
                 if ((world.skeletons[j].position != Vector3.zero) && AreCollided(world.skeletons[j].position, world.pirates[i].position))
                 {
                     Vector3 position = world.pirates[i].position;

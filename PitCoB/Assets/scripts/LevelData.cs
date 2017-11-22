@@ -17,8 +17,7 @@ public class LevelData : MonoBehaviour {
     int targetAlive;
 
     [SerializeField]
-    float radiusX = 1f;
-    float radiusY = 1f;
+    float radiusX = 1f, radiusY = 1f;
 
     World w;
     StateController sc;
@@ -101,9 +100,9 @@ public class LevelData : MonoBehaviour {
         //Reset the World.
         //Add this level's objects to the appropriate World lists.
 
-        //w.radiusX = radiusX;
-        //w.radiusY = radiusY;
-        //w.center = Vector2.zero;
+        w.radiusX = radiusX;
+        w.radiusY = radiusY;
+        w.center = Vector2.zero;
 
         foreach(Skeleton s in GetComponentsInChildren<Skeleton>()) {
             w.skeletons.Add(s);
