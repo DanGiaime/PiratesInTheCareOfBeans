@@ -22,7 +22,7 @@ public class Squid : Agent {
                 ultForce += Flock(Squid.id);
             }
             else {
-                ultForce += Seek(world.center);
+                ultForce += Seek(world.center, false);
             }
             AvoidAllNearbyObstacles(true);
 

@@ -12,7 +12,7 @@ public abstract class Agent : Vehicle {
     /// <summary>
     /// When to stop seeking something
     /// </summary>
-    public float radiusOfCaring = .1f;
+    public float radiusOfCaring;
 
 	public World world;
 	protected Vector3 ultForce;
@@ -180,8 +180,6 @@ public abstract class Agent : Vehicle {
 
         foreach (Agent a in agents)
         {
-            //Vector2 objCenter = a.position - this.transform.position;
-            //float dotForward = Vector2.Dot(rotation.forward, objCenter);
             if (this.GetComponent<Agent>() != a/* && dotForward > 0*/)
             {
                 center += a.position;
@@ -190,8 +188,16 @@ public abstract class Agent : Vehicle {
 
         }
         center = center / count;
-        Vector3 cohesionForce = Seek(center, false);
-        return cohesionForce;
+        //Vector2 objCenter = center - this.position;
+        //float dotForward = Vector2.Dot(rotation.forward, objCenter);
+        if (true)
+        {
+            Vector3 cohesionForce = Seek(center, false);
+            return cohesionForce;
+        }
+        else {
+            return Vector3.zero;
+        }
     }
 
     /// <summary>
